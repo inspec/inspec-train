@@ -1,0 +1,23 @@
+# Documentation available at https://expeditor.chef.io/docs/getting-started/
+---
+
+pipelines:
+ - verify:
+    description: Master:Master tests for inspec:train
+    public: true
+
+schedules:
+ - name: integration_schedule
+   description: Periodic Integration Testing
+   cronline: "0 8 * * *"
+
+slack:
+ notify_channel: inspec-notify
+
+subscriptions:
+ - workload: pull_request_opened:{{agent_id}}:*
+   actions:
+    - built_in:github_auto_assign_author:
+       only_if_team_member:
+        - inspec/owners
+        - inspec/inspec-core-team
