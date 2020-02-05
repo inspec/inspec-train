@@ -21,3 +21,9 @@ subscriptions:
        only_if_team_member:
         - inspec/owners
         - inspec/inspec-core-team
+ - workload: pull_request_merged:inspec/train:master:*
+   actions:
+    - trigger_pipeline:verify
+ - workload: pull_request_merged:inspec/inspec:master:*
+   actions:
+    - trigger_pipeline:verify
