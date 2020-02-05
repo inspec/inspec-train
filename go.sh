@@ -16,5 +16,5 @@ GEM=$PWD/Gemfile
     export NO_AWS=1
     export CHEF_LICENSE=accept-no-persist
 
-    bundle exec --gemfile=$GEM rake ${RAKE_TASK:-test}
+    bundle exec --gemfile=$GEM rake ${RAKE_TASK:-test:unit}
 )
