@@ -6,11 +6,6 @@ pipelines:
     description: Master:Master tests for inspec:train
     public: true
 
-schedules:
- - name: integration_schedule
-   description: Periodic Integration Testing
-   cronline: "0 8 * * *"
-
 slack:
  notify_channel: inspec-notify
 
