@@ -2,17 +2,25 @@
 
 set -e
 
+echo "--- dependencies"
+. .expeditor/buildkite/cache_support.sh
+install_cache_deps sudo
+
+echo "--- pull bundle cache"
+pull_bundle
+
 echo "--- bundle"
+bundle config git.allow_insecure true
+bundle config --local path vendor/bundle
+bundle install --jobs=7 --retry=3 --without tools maintenance deploy
 
-if [ -n "${UPDATE:-}" ] || [ ! -d vendor/bundle ]; then
-    bundle config --local path "$PWD/vendor/bundle"
-    bundle install --jobs 7 --retry 3
-fi
+echo "--- push bundle cache"
+push_bundle
 
-IN=$(bundle info --path inspec)
+IN=$(bundle info --path inspec 2>/dev/null)
 GEM="$PWD/Gemfile"
 
-echo "+++ run"
+echo "+++ bundle exec rake ${RAKE_TASK:-test:unit}"
 
 (
     cd "$IN"
