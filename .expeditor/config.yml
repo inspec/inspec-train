@@ -6,11 +6,6 @@ pipelines:
     description: Master:Master tests for inspec:train
     public: true
 
-schedules:
- - name: integration_schedule
-   description: Periodic Integration Testing
-   cronline: "0 8 * * *"
-
 slack:
  notify_channel: inspec-notify
 
@@ -21,3 +16,9 @@ subscriptions:
        only_if_team_member:
         - inspec/owners
         - inspec/inspec-core-team
+ - workload: pull_request_merged:inspec/train:master:*
+   actions:
+    - trigger_pipeline:verify
+ - workload: pull_request_merged:inspec/inspec:master:*
+   actions:
+    - trigger_pipeline:verify
