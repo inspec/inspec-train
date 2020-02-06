@@ -20,14 +20,18 @@ push_bundle
 IN=$(bundle info --path inspec 2>/dev/null)
 GEM="$PWD/Gemfile"
 
-echo "+++ bundle exec rake ${RAKE_TASK:-test:unit}"
+DEFAULT_TASK="test"
+
+echo "+++ bundle exec rake ${RAKE_TASK:-$DEFAULT_TASK}"
 
 (
     cd "$IN"
     export SLOW=1
     export NO_AWS=1
     export CHEF_LICENSE=accept-no-persist
+    export LANG=C.UTF-8 LANGUAGE=C.UTF-8
+    export MT_CPU=5
 
     # shellcheck disable=SC2086
-    bundle exec --gemfile="$GEM" rake ${RAKE_TASK:-test:unit}
+    bundle exec --gemfile="$GEM" rake ${RAKE_TASK:-$DEFAULT_TASK}
 )
