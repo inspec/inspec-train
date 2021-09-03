@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-gem "inspec", github:"inspec/inspec", branch:"master"
-gem "train",  github:"inspec/train",  branch:"master"
+gem "inspec", git: "https://github.com/inspec/inspec.git", branch:"main"
+gem "train",  git: "https://github.com/inspec/train.git",  branch:"main"
 
 group :test do
   gem "minitest", "~> 5.5"
